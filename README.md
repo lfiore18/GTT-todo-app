@@ -6,8 +6,11 @@ I'll be expanding this readme as and when I get the time!
 
 For now, please follow these basic instructions when contributing to the repo:
 ### 1) Always branch away from main before you start working on a feature.
-  If you're using the command line, do the following:
+  If you're using the command line, do the following:  
+  
   <code>git checkout -b \<your-branch-name\> </code>
+  
+  where <code>checkout</code> means to change branch, <code>-b</code> is the command option to "branch" away and <code>\<your-branch-name\></code> is the name of your new branch.
   
 ### 2) Try to give your branch a name that is both meanginful and concise!
   Where I work, we follow this basic naming convention:  
