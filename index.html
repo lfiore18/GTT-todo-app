@@ -21,7 +21,12 @@
     (async () => {
       let response = await getTodos();
       //let secondResponse = await getTodoById(1);
-      //let postRequest = await postData({});
+      // let postRequest = await postData({ 
+      //   "message": "Hello World" 
+      // });
+      let deleteRequest = await deleteTodoById(1);
+
+      await console.log(deleteRequest);
     })();
   </script>
 </body>

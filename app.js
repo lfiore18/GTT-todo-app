@@ -7,6 +7,8 @@ const app = express();
 app.set("json spaces", 40);
 app.use(cors());
 
+app.use(express.json());
+
 const todos = [
   {
     id: 1,
@@ -21,37 +23,63 @@ const todos = [
 // Serve all static files at root
 app.use(express.static(__dirname))
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '/index.html'));
-});
+
+// app.get('/', function(req, res) {
+//   res.sendFile(path.join(__dirname, '/index.html'));
+// });
+
 
 // Get all todo-items
-app.get('/todo-item', function(req, res) {
-  res.status(200).json(todos);
+app.get('/todo-item', function(request, response) {
+  response.status(200).json(todos);
 });
 
+
 // Get todo-item by id
-app.get('/todo-item/:id', function(req, res) {
-  let requestedId = todos.some(e => e.id == req.params.id);
+app.get('/todo-item/:id', function(request, response) {
+  let requestedId = todos.some(e => e.id == request.params.id);
   if (requestedId) {
-    res.status(200).json(todos[req.params.id]);
+    response.status(200).json(todos[request.params.id]);
   }
 });
 
+// Add a new todo-item
+app.post('/todo-item', function(request, response) {
+  const todo = request.body;
+  console.log(todo);
+  let lastId = todos[todos.length - 1].id;
 
-app.post('/todo', (req, res) => {
-  console.log(req.query);
-  
-  res.send('Test from Todo');
-})
+  todos.push({
+    id: lastId + 1,
+    message: todo.message
+  });
+
+  response.status(200).send(todos[todos.length - 1]);
+});
+
+app.delete('/todo-item/:id', function(request, response) {
+  // get the id from the request
+  // see if there is a todo with that id
+  // if there is, delete it
+  // if not, send a 404
+
+  for (let i = 0; i < todos.length; i++) {
+    if (todos[i].id == request.params.id) {
+      todos.splice(i, 1);
+      response.status(200).send(`Item with id ${request.params.id} deleted`);
+      return;
+    }
+  }
+
+  response.status(404).send("Item with requested ID not found");
+});
 
 // app.put('/todo/:id', () => {
 
 // })
 
-// app.delete('/todo/:id', () => {
 
-// })
+
 
 app.listen(3000, () => {
   console.log('server started');

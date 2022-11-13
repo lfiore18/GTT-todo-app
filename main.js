@@ -4,28 +4,26 @@ const url = "";
 const todoDiv = document.querySelector(".todos");
 
 
-async function buildTodos(todos) {
+async function addTodos(todos) {
   for (let i = 0; i < todos.length; i++) {
-    buildTodo(todos[i]);
+    addTodo(todos[i]);
   }
 }
 
-async function buildTodo(todo) {
+async function addTodo(todo) {
   let newParagraph = document.createElement("p");
   newParagraph.innerText = todo["message"];
   todoDiv.appendChild(newParagraph);
 }
 
-
-
 async function getTodos() {
   const todosJson = await apiCall("/todo-item");
-  await buildTodos(todosJson);
+  await addTodos(todosJson);
 }
 
 async function getTodoById(id) {
   const todoJson = await apiCall("/todo-item/" + id);
-  await buildTodo(todoJson);
+  await addTodo(todoJson);
 }
 
 async function apiCall(endPoint) {
@@ -36,7 +34,7 @@ async function apiCall(endPoint) {
 }
 
 async function postData(data) {
-  return await fetch(`${url}/todo`, {
+  return await fetch(`${url}/todo-item`, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -44,9 +42,12 @@ async function postData(data) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ 
-      "message": "Testing testing testing"
-    })
+    body: JSON.stringify(data)
   });
 }
 
+async function deleteTodoById(id) {
+  return await fetch(`${url}/todo-item/${id}`, {
+    method: 'DELETE'
+  });
+}
