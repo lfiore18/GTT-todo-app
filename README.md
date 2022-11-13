@@ -5,7 +5,7 @@ I'll be expanding this readme as and when I get the time!
 
 
 For now, please follow these basic instructions when contributing to the repo:
-### 1) Always branch away from main before you start working on a feature.
+### 1) Always branch away from the "main" branch before you start working on a feature.
   If you're using the command line, do the following:  
   
   <code>git checkout -b \<your-branch-name\> </code>
