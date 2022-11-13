@@ -34,7 +34,6 @@ app.get('/todo-item', function(req, res) {
 app.get('/todo-item/:id', function(req, res) {
   let requestedId = todos.some(e => e.id == req.params.id);
   if (requestedId) {
-    console.log("HI " + requestedId);
     res.status(200).json(todos[req.params.id]);
   }
 });
