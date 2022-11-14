@@ -54,15 +54,15 @@ app.post('/todo-item', function(request, response) {
     message: todo.message
   });
 
-  response.status(200).send(todos[todos.length - 1]);
+  response.status(200).send(`Todo-item with id: ${lastId + 1} added. \n Message: ${todo.message}`);
 });
 
 app.delete('/todo-item/:id', function(request, response) {
+  
   // get the id from the request
   // see if there is a todo with that id
   // if there is, delete it
   // if not, send a 404
-
   for (let i = 0; i < todos.length; i++) {
     if (todos[i].id == request.params.id) {
       todos.splice(i, 1);

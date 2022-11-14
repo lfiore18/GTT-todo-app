@@ -4,13 +4,13 @@ const url = "";
 const todoDiv = document.querySelector(".todos");
 
 
-async function addTodos(todos) {
+async function buildTodos(todos) {
   for (let i = 0; i < todos.length; i++) {
-    addTodo(todos[i]);
+    buildTodo(todos[i]);
   }
 }
 
-async function addTodo(todo) {
+async function buildTodo(todo) {
   let newParagraph = document.createElement("p");
   newParagraph.innerText = todo["message"];
   todoDiv.appendChild(newParagraph);
@@ -18,12 +18,12 @@ async function addTodo(todo) {
 
 async function getTodos() {
   const todosJson = await apiCall("/todo-item");
-  await addTodos(todosJson);
+  await buildTodos(todosJson);
 }
 
 async function getTodoById(id) {
   const todoJson = await apiCall("/todo-item/" + id);
-  await addTodo(todoJson);
+  await buildTodo(todoJson);
 }
 
 async function apiCall(endPoint) {
@@ -50,4 +50,20 @@ async function deleteTodoById(id) {
   return await fetch(`${url}/todo-item/${id}`, {
     method: 'DELETE'
   });
+}
+
+
+async function addTodoItem(e) {
+
+  console.log(e);
+  // Prevent the form from submitting
+  e.preventDefault();
+
+  // Get the form input
+  let item = document.getElementById("fitem").value;
+
+  // Clear the form input
+  e.target.reset();  
+
+  postData({"message" : item});
 }
