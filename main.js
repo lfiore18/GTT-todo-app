@@ -26,8 +26,10 @@ async function buildTodo(todo) {
 
   todoItem.classList.add("todo-item");
 
-  todoDiv.appendChild(todoItem);
+  // Add the todo id as a data attribute, easier to find and delete later
+  todoItem.setAttribute("data-id", todo.id);
 
+  todoDiv.appendChild(todoItem);
 }
 
 async function getTodos() {
@@ -48,7 +50,7 @@ async function apiCall(endPoint) {
 }
 
 async function postData(data) {
-  return await fetch(`${url}/todo-item`, {
+  const response = await fetch(`${url}/todo-item`, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -57,13 +59,18 @@ async function postData(data) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  });
+  }).then(response => response.json());
+
+  await buildTodo(response);
 }
 
 async function deleteTodoById(id) {
   return await fetch(`${url}/todo-item/${id}`, {
     method: 'DELETE'
   });
+
+  // Remove the todo from the DOM
+  let todoItem = document.querySelector(`.todo-item[data-id="${id}"]`);
 }
 
 
@@ -79,5 +86,5 @@ async function addTodoItem(event) {
   // Clear the form input
   event.target.reset();  
 
-  postData({"message" : item});
+  await postData({"message" : item});
 }

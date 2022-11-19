@@ -7,17 +7,15 @@
   <link rel="stylesheet" href="style.css">
   <title>To-do App</title>
 </head>
-  <body class="w-100">
-    <main class="w-100">
-      <div class="mx-auto">
-        <h1>To-Do List</h1>
-        <form class="w-100">
-          <label for="fitem">Enter Task:</label>
-          <textarea type="text" id="fitem" name="fitem"></textarea>
-          <button type="submit">Add Task!</button>
-        </form>
-        <div class="todos mx-auto">
-        </div>
+  <body class="w-100" style="height: 75vh;">
+    <main class="w-100 h-100">
+      <h1>To-Do List</h1>
+      <form class="w-100">
+        <label for="fitem">Enter Task:</label>
+        <textarea type="text" id="fitem" name="fitem"></textarea>
+        <button type="submit">Add Task!</button>
+      </form>
+      <div class="todos h-100">
       </div>
     </main>
     <script src="main.js"></script>
@@ -25,8 +23,6 @@
       (async () => {
         let response = await getTodos();
         document.addEventListener("submit", addTodoItem);
-
-        //let deleteRequest = await deleteTodoById(1);
       })();
     </script>
   </body>

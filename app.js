@@ -54,7 +54,7 @@ app.post('/todo-item', function(request, response) {
     message: todo.message
   });
 
-  response.status(200).send(`Todo-item with id: ${lastId + 1} added. \n Message: ${todo.message}`);
+  response.status(201).json(todos[todoArrayLength + 1]);
 });
 
 
