@@ -45,16 +45,18 @@ app.post('/todo-item', function(request, response) {
   const todo = request.body;
   console.log(todo);
 
-  let todoArrayLength = todos.length - 1; // 2
+  let lastId = 0;
 
-  let lastId = todos[todoArrayLength].id;
+  // Only get the id of the last todo-item if the array isn't empty
+  if (todos.length > 0)
+    lastId = todos[todos.length - 1].id;
 
   todos.push({
     id: lastId + 1,
     message: todo.message
   });
 
-  response.status(201).json(todos[todoArrayLength + 1]);
+  response.status(201).json(todos[todos.length - 1]);
 });
 
 

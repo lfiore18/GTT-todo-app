@@ -65,3 +65,14 @@ textarea {
     height: 30px;
     width: 30px;
 }
+
+.submit-button {
+    padding-top: 8px; 
+    padding-bottom: 8px; 
+    border: 0px;
+}
+
+button:hover {
+    background-color: #E3E3E3;
+    cursor: pointer;
+}

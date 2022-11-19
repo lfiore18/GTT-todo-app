@@ -50,6 +50,13 @@ async function apiCall(endPoint) {
 }
 
 async function postData(data) {
+  
+  // if the todo is shorter than 3 characters, don't post it
+  if (data.message.length < 3) {
+    alert("Todo must be at least 3 characters long");
+    return;
+  }
+
   const response = await fetch(`${url}/todo-item`, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
