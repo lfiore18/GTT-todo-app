@@ -19,7 +19,7 @@ async function buildTodo(todo) {
   let deleteButton = document.createElement("button");
   deleteButton.classList.add("delete-button");
   deleteButton.innerText = "X";
-  deleteButton.addEventListener("click", function() {deleteTodoById(todo.id)});
+  deleteButton.addEventListener("click", () => deleteTodoById(todo.id));
 
   todoItem.appendChild(newParagraph);
   todoItem.appendChild(deleteButton);
@@ -65,19 +65,21 @@ async function postData(data) {
 }
 
 async function deleteTodoById(id) {
-  return await fetch(`${url}/todo-item/${id}`, {
+  await fetch(`${url}/todo-item/${id}`, {
     method: 'DELETE'
+  }).then((response) => { 
+    if (response.status == 200) {
+      // Remove the todo from the DOM
+      let todoToDelete = document.querySelector(`[data-id="${id}"]`);
+      todoToDelete.remove();
+    }
   });
-
-  // Remove the todo from the DOM
-  let todoItem = document.querySelector(`.todo-item[data-id="${id}"]`);
 }
 
 
-async function addTodoItem(event) {
+function addTodoItem(event) {
 
-  console.log(event);
-  // Prevent the form from submitting
+  // Prevent the form from redirecting to another page
   event.preventDefault();
 
   // Get the form input
@@ -86,5 +88,5 @@ async function addTodoItem(event) {
   // Clear the form input
   event.target.reset();  
 
-  await postData({"message" : item});
+  postData({"message" : item});
 }
