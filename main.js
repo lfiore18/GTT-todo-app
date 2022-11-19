@@ -11,9 +11,23 @@ async function buildTodos(todos) {
 }
 
 async function buildTodo(todo) {
+  let todoItem = document.createElement("div");
+
   let newParagraph = document.createElement("p");
   newParagraph.innerText = todo["message"];
-  todoDiv.appendChild(newParagraph);
+
+  let deleteButton = document.createElement("button");
+  deleteButton.classList.add("delete-button");
+  deleteButton.innerText = "X";
+  deleteButton.addEventListener("click", function() {deleteTodoById(todo.id)});
+
+  todoItem.appendChild(newParagraph);
+  todoItem.appendChild(deleteButton);
+
+  todoItem.classList.add("todo-item");
+
+  todoDiv.appendChild(todoItem);
+
 }
 
 async function getTodos() {
@@ -53,17 +67,17 @@ async function deleteTodoById(id) {
 }
 
 
-async function addTodoItem(e) {
+async function addTodoItem(event) {
 
-  console.log(e);
+  console.log(event);
   // Prevent the form from submitting
-  e.preventDefault();
+  event.preventDefault();
 
   // Get the form input
   let item = document.getElementById("fitem").value;
 
   // Clear the form input
-  e.target.reset();  
+  event.target.reset();  
 
   postData({"message" : item});
 }
