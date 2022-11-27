@@ -9,7 +9,7 @@
 </head>
   <body class="w-100" style="height: 75vh;">
     <main class="w-100 h-100">
-      <h1>To-Do List</h1>
+      <h1 style="margin-top: 10px; margin-bottom: 10px;">To-Do List</h1>
       <form class="w-100">
         <label for="fitem">Enter Task:</label>
         <textarea type="text" id="fitem" name="fitem"></textarea>
@@ -21,8 +21,9 @@
     <script src="main.js"></script>
     <script>
       (async () => {
-        let response = await getTodos();
+        //let response = await getTodos();
         document.addEventListener("submit", addTodoItem);
+        let responseOne = await getTodoById(2);
       })();
     </script>
   </body>

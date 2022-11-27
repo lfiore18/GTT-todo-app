@@ -33,9 +33,10 @@ app.get('/todo-item', function(request, response) {
 
 // Get todo-item by id
 app.get('/todo-item/:id', function(request, response) {
-  let requestedId = todos.some(e => e.id == request.params.id);
+  let requestedId = todos.filter(todo => todo.id == request.params.id)[0];
+  console.log(requestedId);
   if (requestedId) {
-    response.status(200).json(todos[request.params.id]);
+    response.status(200).json(requestedId);
   }
 });
 
