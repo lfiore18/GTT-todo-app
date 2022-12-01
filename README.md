@@ -12,7 +12,7 @@ For now, please follow these basic instructions when contributing to the repo:
   
   where <code>checkout</code> means to change branch, <code>-b</code> is the command option to "branch" away and <code>\<your-branch-name\></code> is the name of your new branch.
   
-### 2) Try to give your branch a name that is both meanginful and concise!
+### 2) Try to give your branch a name that is both meaningful and concise!
   Where I work, we follow this basic naming convention:  
   
   **"Feature/\<name of branch\>"** - When we want to add a new feature to the project
