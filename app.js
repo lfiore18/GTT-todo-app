@@ -33,10 +33,10 @@ app.get('/todo-item', function(request, response) {
 
 // Get todo-item by id
 app.get('/todo-item/:id', function(request, response) {
-  let filteredArrayResult = todos.filter(todo => todo.id == request.params.id)[0];
+  let filteredArrayResult = todos.filter(todo => todo.id == request.params.id);
 
-  if (filteredArrayResult) {
-    response.status(200).json(filteredArrayResult);
+  if (filteredArrayResult.length > 0) {
+    response.status(200).json(filteredArrayResult[0]);
   } else {
     response.status(400).send("Todo Not Found: No item matching that ID");
   }
