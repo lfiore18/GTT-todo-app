@@ -43,10 +43,9 @@ async function getTodoById(id) {
 }
 
 async function apiCall(endPoint) {
-  return await fetch(`${url+endPoint}`
-  )
-    .then(response => response.json())
-    .then(json => json);
+  let response =  await fetch(`${url+endPoint}`);
+  response = await response.json();
+  return response;
 }
 
 async function postData(data) {
@@ -57,30 +56,33 @@ async function postData(data) {
     return;
   }
 
-  const response = await fetch(`${url}/todo-item`, {
+  let response = await fetch(`${url}/todo-item`, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  }).then(response => response.json());
+  });
 
-  await buildTodo(response);
+  response = await response.json();
+
+  buildTodo(response);
 }
 
 async function deleteTodoById(id) {
-  await fetch(`${url}/todo-item/${id}`, {
+  let response = await fetch(`${url}/todo-item/${id}`, {
     method: 'DELETE'
-  }).then((response) => { 
-    if (response.status == 200) {
-      // Remove the todo from the DOM
-      let todoToDelete = document.querySelector(`[data-id="${id}"]`);
-      todoToDelete.remove();
-    }
   });
+  
+  // Remove the todo from the DOM if the DELETE request was successful
+  if (response.status == 200) { 
+    let todoToDelete = document.querySelector(`[data-id="${id}"]`);
+    todoToDelete.remove();
+  }
+
 }
 
 

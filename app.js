@@ -33,9 +33,12 @@ app.get('/todo-item', function(request, response) {
 
 // Get todo-item by id
 app.get('/todo-item/:id', function(request, response) {
-  let requestedId = todos.some(e => e.id == request.params.id);
-  if (requestedId) {
-    response.status(200).json(todos[request.params.id]);
+  let filteredArrayResult = todos.filter(todo => todo.id == request.params.id)[0];
+
+  if (filteredArrayResult) {
+    response.status(200).json(filteredArrayResult);
+  } else {
+    response.status(400).send("Todo Not Found: No item matching that ID");
   }
 });
 
@@ -83,6 +86,6 @@ app.delete('/todo-item/:id', function(request, response) {
 
 // })
 
-app.listen(3000, () => {
+app.listen(3111, () => {
   console.log('server started');
 });
