@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const { type } = require('os');
 
 const app = express();
 
@@ -53,13 +52,15 @@ app.post('/todo-item', function(request, response) {
   // Only get the id of the last todo-item if the array isn't empty
   if (todos.length > 0)
     lastId = todos[todos.length - 1].id;
+  else
+    lastId = 0;
 
   todos.push({
     id: lastId + 1,
     message: todo.message
   });
 
-  response.status(201).json(todos[todos.length - 1]);
+  response.status(201).json(todos[todos.length-1]);
 });
 
 
@@ -75,16 +76,26 @@ app.delete('/todo-item/:id', function(request, response) {
     if (todos[i].id == parseInt(request.params.id)) {
       todos.splice(i, 1);
       response.status(200).send(`Item with id ${request.params.id} deleted`);
-      return;
+      return;    
     }
   }
 
   response.status(404).send("Item with requested ID not found");
 });
 
-// app.put('/todo/:id', () => {
+// 
+app.put('/todo-item/:id', function(request, response) {
+  const todo = request.body;
+  console.log(todo);
 
-// })
+  for (let i = 0; i < todos.length; i++) {
+    if (todos[i].id == parseInt(request.params.id)) {
+      todos[i].message = todo.message;
+      response.status(200).json(todos[i]);
+      return;
+    }
+  }
+})
 
 app.listen(3111, () => {
   console.log('server started');

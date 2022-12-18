@@ -67,6 +67,7 @@ async function postData(data) {
     body: JSON.stringify(data)
   });
 
+  console.log(JSON.stringify(data));
   response = await response.json();
 
   buildTodo(response);
