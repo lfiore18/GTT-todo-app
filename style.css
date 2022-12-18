@@ -76,3 +76,22 @@ button:hover {
     background-color: #E3E3E3;
     cursor: pointer;
 }
+
+.todo-item textarea {
+    background-color: transparent;
+    resize: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    vertical-align: center;
+}
+
+.todo-item textarea:focus {
+    text-align: left;
+}
+
+.hidden {
+    display: none;
+}

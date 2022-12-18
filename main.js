@@ -21,7 +21,17 @@ async function buildTodo(todo) {
   deleteButton.innerText = "X";
   deleteButton.addEventListener("click", () => deleteTodoById(todo.id));
 
-  todoItem.appendChild(newParagraph);
+  let form = document.createElement("form");
+  let textInput = document.createElement("textarea");
+
+  textInput.setAttribute("onchange", `updateTodoById(${todo.id}, event)`);
+  textInput.value = todo["message"];
+
+  form.setAttribute("action", "/todo-item/" + todo["id"]);
+  form.setAttribute("method", "PUT");
+  form.appendChild(textInput);
+
+  todoItem.appendChild(form);
   todoItem.appendChild(deleteButton);
 
   todoItem.classList.add("todo-item");
@@ -67,7 +77,6 @@ async function postData(data) {
     body: JSON.stringify(data)
   });
 
-  console.log(JSON.stringify(data));
   response = await response.json();
 
   buildTodo(response);
@@ -84,6 +93,31 @@ async function deleteTodoById(id) {
     todoToDelete.remove();
   }
 
+}
+
+async function updateTodoById(id, event) {
+
+  let data = {
+    
+  }
+
+  if (event.target.value)
+    data["message"] = event.target.value;
+  else
+    return;
+
+  let response = await fetch(`${url}/todo-item/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (response.status == 200) {
+    response = await response.json();
+    event.target.value = await response["message"];
+  }
 }
 
 

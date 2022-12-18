@@ -86,7 +86,7 @@ app.delete('/todo-item/:id', function(request, response) {
 // 
 app.put('/todo-item/:id', function(request, response) {
   const todo = request.body;
-  console.log(todo);
+  console.log("hi: " + todo.message);
 
   for (let i = 0; i < todos.length; i++) {
     if (todos[i].id == parseInt(request.params.id)) {
