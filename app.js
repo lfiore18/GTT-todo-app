@@ -95,7 +95,9 @@ app.put('/todo-item/:id', function(request, response) {
       return;
     }
   }
-})
+
+  response.status(404).send("Item with requested ID not found");
+});
 
 app.listen(3111, () => {
   console.log('server started');
